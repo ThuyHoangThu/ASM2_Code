@@ -5,11 +5,6 @@
 package asm2_code;
 import java.util.Scanner;
 
-/**
- *
- * @author ADMIN
- */
-
 class Node {
     String data;
     Node next;
@@ -90,11 +85,22 @@ public class ASM2_Code {
         Queue messageQueue = new Queue();
         Stack messageStack = new Stack();
 
-        // Input message
+        // Input messages
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the string (max 250 characters): ");
-        String inputMessage = scanner.nextLine();
-        messageQueue.enqueue(inputMessage);
+        String inputMessage;
+
+        do {
+            System.out.print("Enter the string (max 250 characters) or 'exit' to stop: ");
+            inputMessage = scanner.nextLine();
+
+            if (!inputMessage.equalsIgnoreCase("exit")) {
+                if (inputMessage.length() <= 250) {
+                    messageQueue.enqueue(inputMessage);
+                } else {
+                    System.out.println("Error: The message should not exceed 250 characters.");
+                }
+            }
+        } while (!inputMessage.equalsIgnoreCase("exit"));
 
         // Send Message (Dequeue from Queue, Push to Stack)
         while (!messageQueue.isEmpty()) {
